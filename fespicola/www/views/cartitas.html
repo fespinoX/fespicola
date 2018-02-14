@@ -1,0 +1,32 @@
+<div ui-content-for="title">
+	<span>OFICIOS</span>
+</div>
+
+<div class="scrollable">  
+	<div class="scrollable-content">
+
+
+	<span ng-if="levantaError" class="error">{{todoMal}}</span>
+		
+		<div class="list-group">
+
+			<div class="list-group-item" ng-repeat="item in levantaCartitas">
+				<div class="portaInfo">		
+				    <h2>{{item.nombre}}</h2>
+				    <img ng-src="{{item.foto}}" alt="granja">
+                    <p>Mazo: <span>{{item.mazo}}</span></p>
+					<p>{{item.info}}</p>
+			    </div>
+			</div>
+
+			<div class="list-group-item" ng-repeat="item in infoLS">
+				<div class="portaInfo">		
+				    <h2>{{item.nombre}}</h2>
+				    <img ng-src="{{item.foto}}" alt="granja">
+                    <p>Mazo: <span>{{item.mazo}}</span></p>
+					<p>{{item.info}}</p>
+			    </div>
+
+		</div>
+	</div>
+</div>

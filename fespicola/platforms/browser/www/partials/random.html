@@ -1,0 +1,27 @@
+<div ng-loader="loading">
+	<div class="scrollable" ng-controller="mostrarBarController">
+		<div class="scrollable-content">	
+			<div class="random detalle" ng-init="getRandom()">
+				<h2>Hoy podés visitar: <span> {{ bar_random.nombre }} </span></h2>	
+				<ul class="detalles">
+					<li>
+						<span class="bold">Categoría:</span> 
+						{{ bar_random.tipo.cat }}
+					</li>
+					<li>
+						<span class="bold">Tipo de Comida:</span> 
+						{{ bar_random.comida }}
+					</li>
+					<li>
+						<span class="bold">Dirección:</span> 
+						{{ bar_random.direccion }}
+					</li>
+					<li>
+						<span class="bold">Barrio:</span> 
+						{{ bar_random.barrio }}
+					</li>
+				</ul>
+			</div>				
+		</div>
+	</div>
+</div>	

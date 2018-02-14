@@ -1,0 +1,69 @@
+<div class="scrollable">
+	<div class="scrollable-content">
+		<div class="top_five detalle no-bg">
+			<h2>Top 5 Buenos Aires</h2>
+			<div class="panel-group" ui-state="top_five" ui-default="0">
+				<div class="panel panel-default" ng-repeat="bar in mostrar_top_bares">
+					<div class="panel-heading" ui-set="{'top_five': {{ $index }} }">
+						<h4 class="panel-title">
+							{{ bar.nombre }}
+						</h4>
+					</div>
+					<div ui-if="top_five == {{ $index }}">
+						<div class="panel-body">
+							<ul>
+								<li>
+									<span>Especialidad:</span> {{ bar.especialidad }}
+								</li>
+								<li>
+									<span>Dirección:</span> {{ bar.direccion }}
+								</li>
+								<li>
+									<span class="bar_imagen">
+										<img ng-src= "{{ bar.imagen }}" />
+									</span>
+								</li>
+							</ul>							
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<p class="alert alert-danger" ng-if="no_cnx">	
+				Lo sentimos, {{ no_cnx }}
+			</p>  
+
+
+			<p class="alert alert-danger" ng-if="no_local">	
+				Lo sentimos, {{ no_local }}
+			</p>  
+
+			<div class="panel-group" ui-state="top_five" ui-default="0">
+				<div class="panel panel-default" ng-repeat="bar in bar_l">
+					<div class="panel-heading" ui-set="{'top_five': {{ $index }} }">
+						<h4 class="panel-title">
+							{{ bar.nombre }}
+						</h4>
+					</div>
+					<div ui-if="top_five == {{ $index }}">
+						<div class="panel-body">
+							<ul>
+								<li>
+									<span>Especialidad:</span> {{ bar.especialidad }}
+								</li>
+								<li>
+									<span>Dirección:</span> {{ bar.direccion }}
+								</li>
+								<li>
+									<span class="bar_imagen">
+										<img ng-src= "{{ bar.imagen }}" />
+									</span>
+								</li>
+							</ul>							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,56 @@
+<div class="scrollable">
+	<div class="scrollable-content" ng-controller="ingresarBarController">
+
+		<form name="formulario_ingresar" novalidate ng-submit="GuardarBar(nuevoBar)" method="POST">
+			<div class="form-group">
+				<div class="form_fila">
+					<ng-input theme='juro' label='Nombre del bar / restaurant' ng-required='true' ng-minlength='3' ng-maxlength='50' ng-model='nuevoBar.nombre' name='nombre'></ng-input>
+
+					<div class="error_form" ng-show="formulario_ingresar.nombre.$invalid && formulario_ingresar.nombre.$dirty">
+						<span ng-show="formulario_ingresar.nombre.$error.required">Por favor completa este campo</span>
+						<span ng-show="formulario_ingresar.nombre.$error.minlength">Ingresar mínimo 3 caracteres</span>
+					</div>
+				</div>
+
+				<div class="form_fila">
+					<ng-input theme='juro' label='Tipo de comida' ng-required='true' ng-minlength='4' ng-model='nuevoBar.comida' name='comida'></ng-input>
+
+					<div class="error_form" ng-show="formulario_ingresar.comida.$invalid && formulario_ingresar.comida.$dirty">
+						<span ng-show="formulario_ingresar.comida.$error.required">Por favor completa este campo</span>
+						<span ng-show="formulario_ingresar.comida.$error.minlength">Ingresar mínimo 4 caracteres</span>
+					</div>
+				</div>
+				
+				<div class="form_fila">					
+					<ng-input theme='juro' label='Dirección' ng-required='true' ng-minlength='3' ng-model='nuevoBar.direccion' name='direccion'></ng-input>
+					<div class="error_form" ng-show="formulario_ingresar.direccion.$invalid && formulario_ingresar.direccion.$dirty">
+						<span ng-show="formulario_ingresar.direccion.$error.required">Por favor completa este campo</span>
+						<span ng-show="formulario_ingresar.direccion.$error.minlength">Ingresar mínimo 3 caracteres</span>
+					</div>
+				</div>
+
+				<div class="form_fila">
+					<ng-input theme='juro' label='Barrio' ng-required='true' ng-minlength='4' ng-model='nuevoBar.barrio' name='barrio'></ng-input>
+
+					<div class="error_form" ng-show="formulario_ingresar.barrio.$invalid && formulario_ingresar.barrio.$dirty">
+						<span ng-show="formulario_ingresar.barrio.$error.required">Por favor completa este campo</span>
+						<span ng-show="formulario_ingresar.barrio.$error.minlength">Ingresar mínimo 4 caracteres</span>
+					</div>
+				</div>
+
+				<select ng-model='nuevoBar.tipo' name="tipo" ng-options='item.cat for item in categorias' ng-required='true'> 
+					<option value="">Elije una categoría</option>
+				</select>
+
+				<div class="error_form" ng-show="formulario_ingresar.barrio.$invalid && formulario_ingresar.barrio.$dirty">
+					<span ng-show="formulario_ingresar.barrio.$error.required">Por favor selecciona una categoría</span>
+				</div>
+				
+				<div class="form_fila">        
+				    <button class="btn-block" ng-disabled="formulario_ingresar.$invalid">Agregar</button>
+				</div>
+			</div>
+		</form>	
+		
+	</div>
+</div>

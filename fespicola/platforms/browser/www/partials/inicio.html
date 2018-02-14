@@ -1,0 +1,26 @@
+<div ng-loader="loading">
+	<div class="listado_bares scrollable" ng-if="bares_todos.length > 0">
+		<ul class="scrollable-content list-group">
+			<li class="list-group-item" ng-repeat="bar in bares_todos">
+				<span> 
+					<img ng-if="bar.tipo.cat == 'Bar'" src="assets/bar_icon.png" alt="Bar" />
+					<img ng-if="bar.tipo.cat == 'Restaurant'" src="assets/restaurant_icon.png" alt="Restaurant" />
+					<img ng-if="bar.tipo.cat == 'Cafetería'" src="assets/cafe_icon.png" alt="Cafetería" />
+				</span>		
+				<div>
+					<h2> {{ bar.nombre }} </h2>
+					<span> {{ bar.direccion }} | {{ bar.barrio }}</span>
+					<span> {{ bar.comida }} </span>
+				</div>	
+				
+				<a href="#/" ng-click="borrar_bar(bar.id)">
+					<i class="fa fa-times" ></i>
+				</a>				
+			</li>
+		</ul>
+	</div>
+
+	<div class="sin_bares" ng-if="bares_todos.length == null || bares_todos.length == 0">
+		<p>Todavía no tenés ningún bar cargado</p>
+	</div>
+</div>

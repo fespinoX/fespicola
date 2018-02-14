@@ -1,0 +1,21 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.florenciasepulveda.crawler.www"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.florenciasepulveda.crawler.www"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.florenciasepulveda.crawler.www"
+        }
+    },
+    "dependent_plugins": {}
+}

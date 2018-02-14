@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'telegramaraw';
+}
+
+.navbar{
+    background-color: orangered;
+    color: white;
+}
+
+h1{
+    background-color: orangered;
+    color: white;
+    font-family: 'i_pixel_uregular';
+}
+
+.navbar-brand, h2{
+    font-family: 'i_pixel_uregular';
+    text-transform: uppercase;
+}
+
+.active{
+    background-color: #f6297e!important;
+    color: white!important;
+}
+
+.list-group-item{
+    color: white!important;
+    background-color: #0dbff9;
+}
+
+#barrita{
+    color: white;
+}
+
+.scrollable-content{
+    background-color: orange;
+}
+
+.input__field{
+    color: lawngreen;
+    background-color: white;
+    
+}
+
+.input__label-content{
+    color: white!important;
+}
+
+
+.error{
+    color:orangered;
+}
+
+#botonito, .eli{
+    background-color: #0dbff9;
+    color: white;
+    border: none;
+}
+
+.eli{
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+form{
+    width:350px;
+}
+
+.muestrita{
+    background-color: #f6297e;
+    color: white;
+}
+
+.muestra{
+    border-bottom:2px solid white;
+    padding:10px;
+    margin:15px;
+}
+
+.portaInfo span, .portaInfo p{
+    color: black;
+}
+
+#infoEntrega{
+    padding: 20px;
+    text-align: center;
+}
+
+ul{
+    list-style: none;
+}
+
+img{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+ 

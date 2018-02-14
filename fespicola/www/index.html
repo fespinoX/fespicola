@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>FESPICOLA</title>
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
+       
+    <link rel="stylesheet" href="dist/css/mobile-angular-ui-base.css" />
+    <script src="dist/js/angular.js"></script>
+    <script src="dist/js/angular-route.js"></script>
+		
+	<!-- NG INPUT-->
+
+<link rel='stylesheet' href='dist/css/ng-input.css' />
+<link rel="stylesheet" href="public/components/mdi/css/materialdesignicons.min.css" media='all'/>
+<script src='dist/ng-input.js'></script>
+
+	
+	<script src="dist/js/mobile-angular-ui.min.js"></script>
+	<script src="controllers/app.js"></script>
+	<link rel="stylesheet" type="text/css" href="cositas/estilito.css" />
+	    <link rel="stylesheet" type="text/css" href="cositas/fuentes/stylesheet-telegram.css"/> <!-- TELEGRAM -->
+    <link rel="stylesheet" type="text/css" href="cositas/fuentes/stylesheet-ipixelu.css"/> <!-- I PIXEL U -->
+	
+  </head>
+
+  <body 
+    ng-app="fespicola" 
+    ng-controller="micontroller"
+    ui-prevent-touchmove-defaults
+    >
+
+    <!-- Sidebars -->
+    <div ng-include="'includes/sidebar.html'" 
+            ui-track-as-search-param='true'
+            class="sidebar sidebar-left">
+	</div>
+	<div class="app" 
+         ui-swipe-right='Ui.turnOn("uiSidebarLeft")'
+         ui-swipe-left='Ui.turnOff("uiSidebarLeft")'>
+
+      <!-- Navbars -->
+
+      <div class="navbar navbar-app navbar-absolute-top">
+        <div class="navbar-brand navbar-brand-center" ui-yield-to="title">
+         FESPICOLA
+        </div>
+        <div class="btn-group pull-left">
+          <div ui-toggle="uiSidebarLeft" class="btn sidebar-toggle" id="barrita">
+            <i class="fa fa-bars"></i> Menu
+          </div>
+        </div>
+       </div>
+
+     <!-- App Body -->
+      <div class="app-body">
+        <div class="app-content">
+          <ng-view></ng-view>
+        </div>
+      </div>
+
+	
+
+  </div><!-- ~ .app -->
+
+    <div ui-yield-to="modals"></div>
+    
+  </body>
+</html>
