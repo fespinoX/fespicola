@@ -45,28 +45,25 @@ fespi.controller('cartitas', function ($scope, $http) {
 
 
 
-
-
-
 fespi.controller("micontroller", function ($scope, $location) {
-	$scope.si=true;
+	$scope.si = true;
     
     $scope.guardar = function(datos){
     
-    $campos = datos.campos;
-    $pastos = datos.pastos;
-    $granos=datos.granos;
-    $vegetales=datos.vegetales;
-    $ovejas=datos.ovejas;
-    $chanchos=datos.chanchos;
-    $ganado=datos.ganado;
-    $tierra=datos.tierra;
-    $vallados=datos.vallados;
-    $choza=datos.choza;
-    $casa=datos.casa;
-    $familia=datos.familia;
-    $puntos=datos.puntos;
-    $bonus=datos.bonus;
+    $campos     = datos.campos;
+    $pastos     = datos.pastos;
+    $granos     = datos.granos;
+    $vegetales  = datos.vegetales;
+    $ovejas     = datos.ovejas;
+    $chanchos   = datos.chanchos;
+    $ganado     = datos.ganado;
+    $tierra     = datos.tierra;
+    $vallados   = datos.vallados;
+    $choza      = datos.choza;
+    $casa       = datos.casa;
+    $familia    = datos.familia;
+    $puntos     = datos.puntos;
+    $bonus      = datos.bonus;
     
 
     if ($campos <= 1){

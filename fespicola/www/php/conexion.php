@@ -1,52 +1,50 @@
 <?php header("Access-Control-Allow-Origin: *");
 
-	$conexion = mysqli_connect('florenciasepulveda.com', 'crawler', 'crawler1234', 'crawler_app' );
+	$conexion = mysqli_connect('ohno.com.ar', 'fespicola', 'fespicola1234', 'fespicola' );
 	
-	function insertar_bares($nuevoBar){ 
+	function putResultados($fespiDatos){ 
 		global $conexion;
-		$nuevoBar = json_decode($nuevoBar);
-		$categoria_tipo = $nuevoBar->tipo->cat;
-		$consulta = "INSERT INTO bares SET NOMBRE = '$nuevoBar->nombre', DIRECCION = '$nuevoBar->direccion', BARRIO = '$nuevoBar->barrio', TIPO_DE_COMIDA = '$nuevoBar->comida', CATEGORIA = '$categoria_tipo'";	
+		$fespiDatos = json_decode($fespiDatos);
+		/* $categoria_tipo = $nuevoBar->tipo->cat; */
+		/* $puntos = ? */
+		/* acá debería traer el cálculo de puntaje */
+		$consulta = "INSERT INTO resultados SET NOMBRE = '$fespiDatos->nombre', PUNTOS = '$puntos'";	
 		mysqli_query($conexion, $consulta);
 	}
 
-	function borrar_bares($id){
+	function deleteResultados($id){
 		global $conexion;
-		$consulta = "DELETE FROM bares WHERE ID='$id' ";
+		$consulta = "DELETE FROM resultados WHERE ID='$id' ";
 		mysqli_query($conexion, $consulta);
 	}
 
-	function get_bares(){
+	function getResultados(){
 		global $conexion;
-		$consulta = "SELECT * FROM bares ORDER BY ID ASC";
-		$lista_bares = mysqli_query($conexion, $consulta);		
+		$consulta = "SELECT * FROM resultados ORDER BY ID ASC";
+		$allResultados = mysqli_query($conexion, $consulta);		
 		$return = array();
 		
-		while($m_bares = mysqli_fetch_assoc($lista_bares)){
-			$bar = [];
-			$bar['id'] = $m_bares['ID'];
-			$bar['nombre'] = $m_bares['NOMBRE'];
-			$bar['direccion'] = $m_bares['DIRECCION'];
-			$bar['comida'] = $m_bares['TIPO_DE_COMIDA'];
-			$bar['tipo'] = [];
-			$bar['tipo']['cat'] = $m_bares['CATEGORIA'];
-			$bar['barrio'] = $m_bares['BARRIO'];
+		while($m_resultados = mysqli_fetch_assoc($allResultados)){
+			$resultado = [];
+			$resultado['id'] = $m_resultados['ID'];
+			$resultado['nombre'] = $m_resultados['NOMBRE'];
+			$resultado['puntos'] = $m_resultados['PUNTOS'];
 			
-			$return[] = $bar;
+			$return[] = $resultado;
 		}
 
 		$return = json_encode($return);
 		return $return;	
 	}
 
-	function sincronizar_bares($bares_local){
+	function syncResultados($resultadosLocal){
 		global $conexion;
-		$bares_local = json_decode($bares_local);
-		$consulta = "TRUNCATE TABLE bares";
+		$resultadosLocal = json_decode($resultadosLocal);
+		$consulta = "TRUNCATE TABLE resultados";
 		mysqli_query($conexion, $consulta);
-		if(count($bares_local) > 0) {
-			foreach ($bares_local as $bar) {
-				insertar_bares(json_encode($bar));
+		if(count($resultadosLocal) > 0) {
+			foreach ($resultadosLocal as $resultado) {
+				putResultados(json_encode($resultado));
 			}			
 		}
 	}
