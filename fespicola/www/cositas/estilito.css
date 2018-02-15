@@ -5,13 +5,15 @@
     font-family: 'telegramaraw';
 }
 
+
+
 .navbar{
-    background-color: orangered;
+    background-color: #b14343;
     color: white;
 }
 
 h1{
-    background-color: orangered;
+    background-color: #b14343;
     color: white;
     font-family: 'i_pixel_uregular';
 }
@@ -28,34 +30,44 @@ h1{
 
 .list-group-item{
     color: white!important;
-    background-color: #0dbff9;
 }
 
 #barrita{
     color: white;
 }
 
-.scrollable-content{
-    background-color: orange;
+.scrollable-content,
+.list-group-item{
+    background-image: url(img/fondoagricola.jpg);
+    background-size: cover;
+}
+
+.form-group img {
+    width: 17%;
+    display: inline-block;
+}
+
+.input {
+    width: calc(70% - 2em);
 }
 
 .input__field{
-    color: lawngreen;
-    background-color: white;
+    color: #668b4c;
+    background-color: #ffe6b0;
     
 }
 
 .input__label-content{
-    color: white!important;
+    color: #53524d!important;
 }
 
 
 .error{
-    color:orangered;
+    color: #b14343;
 }
 
 #botonito, .eli{
-    background-color: #0dbff9;
+    background-color: #0095e4;
     color: white;
     border: none;
 }
