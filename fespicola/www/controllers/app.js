@@ -5,19 +5,31 @@ var fespi = angular.module('fespicola', [
   ]);
 
 fespi.config(function($routeProvider) {
-  $routeProvider.when('/',   
-	{templateUrl: 'views/home.html', reloadOnSearch: false, controller 	: 'micontroller'});
- $routeProvider.when('/mostrar',  
-	{templateUrl: 'views/mostrar.html', controller: 'mostrar', reloadOnSearch: false,
+    $routeProvider.when('/', {
+        templateUrl:        'views/home.html', 
+        controller:         'guardarController',
+        reloadOnSearch:     false,
+    });
+
+    $routeProvider.when('/mostrar', {
+        templateUrl:        'views/mostrar.html', 
+        controller:         'mostrarController', 
+        reloadOnSearch:     false,
 	});
-    $routeProvider.when('/cartitas',  
-	{templateUrl: 'views/cartitas.html', controller: 'cartitas', reloadOnSearch: false,
+
+    $routeProvider.when('/cartitas', {
+        templateUrl:        'views/cartitas.html', 
+        controller:         'cartitas', 
+        reloadOnSearch:     false,
 	});
-     $routeProvider.when('/datitos',  
-	{templateUrl: 'views/datitos.html', reloadOnSearch: false,
+
+     $routeProvider.when('/datitos', {
+        templateUrl:        'views/datitos.html', 
+        reloadOnSearch:     false,
 	});
+
  	$routeProvider.otherwise({
-    redirectTo: '/'
+        redirectTo:         '/'
     });
 });
 
@@ -45,11 +57,15 @@ fespi.controller('cartitas', function ($scope, $http) {
 
 
 
-fespi.controller("micontroller", function ($scope, $location) {
-	$scope.si = true;
+fespi.controller("guardarController", function ($scope, $http, $location) {
+	
+    $scope.si = true;
     
     $scope.guardar = function(datos){
     
+
+/* se hace el cálculo mágico de los puntajes */
+
     $campos     = datos.campos;
     $pastos     = datos.pastos;
     $granos     = datos.granos;
@@ -234,11 +250,16 @@ $scope.bonusPuntaje = $bonus * 1;
     
 $scope.totalPuntaje =  $scope.camposPuntaje + $scope.pastosPuntaje + $scope.granosPuntaje + $scope.vegetalesPuntaje + $scope.ovejasPuntaje + $scope.chanchosPuntaje + $scope.ganadoPuntaje + $scope.tierraPuntaje + $scope.valladosPuntaje + $scope.chozaPuntaje + $scope.casaPuntaje + $scope.familiaPuntaje + $scope.puntosPuntaje + $scope.bonusPuntaje;  
 
-  
-        $scope.aguardar={
-			nombre:datos.nombre,
+ 
+/* listo el cálculo, guardo sólo el nombre del jugador y el resultado final */
+
+        $scope.aguardar = {
+			nombre: datos.nombre,
 			puntillos: $scope.totalPuntaje
 		}
+
+
+/* guardo en el JSON local */
 		
         if(!localStorage.getItem("fespiDatos")){
 		  $scope.superArray=[];
@@ -249,17 +270,66 @@ $scope.totalPuntaje =  $scope.camposPuntaje + $scope.pastosPuntaje + $scope.gran
 			
 		localStorage.setItem( "fespiDatos" , JSON.stringify($scope.superArray));
 			
-		$location.path("/mostrar"); 
+		$location.path("/mostrar");
+
+
+/* guardo en la base */
+
+        $http({
+            method: 'POST',     
+            url: 'http://ohno.com.ar/fespicola/agregar.php', 
+            data: 'inputsResultados=' + JSON.stringify($scope.info), 
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            loader: 'loading'
+        }).then(function sipi(data){
+            $scope.allResultados = data.data; 
+            $scope.info = '';
+            $location.path("/mostrar");
+        }, function nopo(data){
+            if($scope.getResultados !== null){
+                $scope.superArray = JSON.parse($scope.getResultados);
+                $location.path("/"); 
+            } 
+        });
 			
-		}
+    }
 	
 });
 
-fespi.controller("mostrar", function ($scope) { 
-	$scope.levantaInfo = JSON.parse(localStorage.getItem('fespiDatos'));
+
+fespi.controller("mostrarController", function ($scope, $http, $location) {
+
+	
+/* mostrar los resultados */
     
+    /* $scope.levantaInfo = JSON.parse(localStorage.getItem('fespiDatos')); */
+
+    $http({
+        method: 'POST',     
+        url: 'http://ohno.com.ar/fespicola/sincronizar.php', 
+        data: 'resultadosLocal=' + localStorage.getItem('fespiDatos'), 
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        loader: 'loading'
+    }).then(function sipi(data){
+        $http({
+            method: 'GET',
+            url: 'http://ohno.com.ar/fespicola/mostrar.php',
+            loader: 'loading'
+        }).then(function sipi(data) {
+            if(data.data.length > 0){
+                $scope.allResultados = data.data;    
+            }            
+        });
+    }, function no(data){
+        $scope.levantaInfo = JSON.parse(localStorage.getItem('nuevoBar'));
+    }); 
+    
+
+
+/* eliminar un resultado */
     
     $scope.borrar = function(x){
+
 		localStorage.removeItem("fespiDatos");
 			$scope.levantaInfo.splice($scope.levantaInfo.indexOf(x), 1);
 			
@@ -269,6 +339,20 @@ fespi.controller("mostrar", function ($scope) {
 			
 				localStorage.setItem("fespiDatos", JSON.stringify($scope.nuevaLista))
 			});
+
+                
+        $http({ 
+            method: 'POST',
+            url: 'http://ohno.com.ar/fespicola/eliminar.php', 
+            data: 'idResultado=' + bar,  
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            loader: 'loading'
+        }).then(function ok(data){
+            $scope.bares_todos = data.data ;
+            $location.path("/"); 
+        });  
+
+
 		}
     
 });
