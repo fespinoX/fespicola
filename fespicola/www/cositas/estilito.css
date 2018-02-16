@@ -82,8 +82,8 @@ form{
 }
 
 .muestrita{
-    background-color: #f6297e;
-    color: white;
+    background-image: url(img/fondoagricola.jpg);
+    background-size: cover;
 }
 
 .muestra{

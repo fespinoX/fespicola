@@ -5,10 +5,7 @@
 	function putResultados($fespiDatos){ 
 		global $conexion;
 		$fespiDatos = json_decode($fespiDatos);
-		/* $categoria_tipo = $nuevoBar->tipo->cat; */
-		/* $puntos = ? */
-		/* acá debería traer el cálculo de puntaje */
-		$consulta = "INSERT INTO resultados SET NOMBRE = '$fespiDatos->nombre', PUNTOS = '$puntos'";	
+		$consulta = "INSERT INTO resultados SET NOMBRE = '$fespiDatos->nombre', PUNTOS = '$fespiDatos->puntos'";	
 		mysqli_query($conexion, $consulta);
 	}
 

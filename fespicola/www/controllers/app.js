@@ -255,7 +255,7 @@ $scope.totalPuntaje =  $scope.camposPuntaje + $scope.pastosPuntaje + $scope.gran
 
         $scope.aguardar = {
 			nombre: datos.nombre,
-			puntillos: $scope.totalPuntaje
+			puntos: $scope.puntos
 		}
 
 
@@ -266,8 +266,8 @@ $scope.totalPuntaje =  $scope.camposPuntaje + $scope.pastosPuntaje + $scope.gran
 		}else{
 		  $scope.superArray = JSON.parse(localStorage.getItem('fespiDatos'));
 		}
-        $scope.superArray.push($scope.aguardar);
-			
+
+        $scope.superArray.push($scope.aguardar);	
 		localStorage.setItem( "fespiDatos" , JSON.stringify($scope.superArray));
 			
 		$location.path("/mostrar");
@@ -290,7 +290,7 @@ $scope.totalPuntaje =  $scope.camposPuntaje + $scope.pastosPuntaje + $scope.gran
                 $scope.superArray = JSON.parse($scope.getResultados);
                 $location.path("/"); 
             } 
-        });
+        }); 
 			
     }
 	
@@ -302,7 +302,7 @@ fespi.controller("mostrarController", function ($scope, $http, $location) {
 	
 /* mostrar los resultados */
     
-    /* $scope.levantaInfo = JSON.parse(localStorage.getItem('fespiDatos')); */
+    /* $scope.allResultados = JSON.parse(localStorage.getItem('fespiDatos')); */
 
     $http({
         method: 'POST',     
@@ -321,9 +321,9 @@ fespi.controller("mostrarController", function ($scope, $http, $location) {
             }            
         });
     }, function no(data){
-        $scope.levantaInfo = JSON.parse(localStorage.getItem('nuevoBar'));
+        $scope.allResultados = JSON.parse(localStorage.getItem('fespiDatos'));
     }); 
-    
+
 
 
 /* eliminar un resultado */
@@ -331,10 +331,10 @@ fespi.controller("mostrarController", function ($scope, $http, $location) {
     $scope.borrar = function(x){
 
 		localStorage.removeItem("fespiDatos");
-			$scope.levantaInfo.splice($scope.levantaInfo.indexOf(x), 1);
+			$scope.allResultados.splice($scope.allResultados.indexOf(x), 1);
 			
 			$scope.nuevaLista = [];
-			angular.forEach($scope.levantaInfo, function(x) {
+			angular.forEach($scope.allResultados, function(x) {
 				$scope.nuevaLista.push(x);
 			
 				localStorage.setItem("fespiDatos", JSON.stringify($scope.nuevaLista))
@@ -344,11 +344,11 @@ fespi.controller("mostrarController", function ($scope, $http, $location) {
         $http({ 
             method: 'POST',
             url: 'http://ohno.com.ar/fespicola/eliminar.php', 
-            data: 'idResultado=' + bar,  
+            data: 'idResultado=' + resultado,  
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             loader: 'loading'
         }).then(function ok(data){
-            $scope.bares_todos = data.data ;
+            $scope.allResultados = data.data ;
             $location.path("/"); 
         });  
 
