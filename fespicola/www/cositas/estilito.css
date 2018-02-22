@@ -12,6 +12,10 @@
     color: white;
 }
 
+.menu{
+    background-color: #93c96d;
+}
+
 h1{
     background-color: #b14343;
     color: white;
@@ -23,24 +27,31 @@ h1{
     text-transform: uppercase;
 }
 
-.active{
-    background-color: #f6297e!important;
-    color: white!important;
+.list-group-item.active{
+    background-color: #f7c929;
+    color: black;
 }
 
-.list-group-item{
-    color: white!important;
+a.list-group-item{
+    color: white;
+    background-color: #CC4D53;
+}
+
+a.list-group-item:focus, 
+button.list-group-item:focus,
+.list-group-item.active:focus {
+    background-color: #CC4D5B;
+    color: #fff;
+}
+
+a.list-group-item.active, a.list-group-item.active:focus {
+    border: none;
 }
 
 #barrita{
     color: white;
 }
 
-.scrollable-content,
-.list-group-item{
-    background-image: url(img/fondoagricola.jpg);
-    background-size: cover;
-}
 
 .form-group img {
     width: 17%;
@@ -67,9 +78,16 @@ h1{
 }
 
 #botonito, .eli{
-    background-color: #0095e4;
     color: white;
     border: none;
+}
+
+#botonito{
+    background-color: #379138;
+}
+
+.eli{
+    background-color: #b14343;
 }
 
 .eli{
@@ -78,11 +96,25 @@ h1{
 }
 
 form{
-    width:350px;
+    max-width: 500px;
 }
 
-.muestrita{
+.home,
+.muestrita,
+.cartitas,
+#infoEntrega{
+    min-height: 100%;
     background-image: url(img/fondoagricola.jpg);
+    background-attachment: local;
+}
+
+.home{
+    background-size: contain;
+}
+
+.muestrita,
+.cartitas,
+#infoEntrega{
     background-size: cover;
 }
 
@@ -90,6 +122,10 @@ form{
     border-bottom:2px solid white;
     padding:10px;
     margin:15px;
+}
+
+.puntos{
+    font-size: 22px;
 }
 
 .portaInfo span, .portaInfo p{
@@ -101,8 +137,25 @@ form{
     text-align: center;
 }
 
+#infoEntrega p{
+    background-color: #ffe6b0;
+    padding: 12px 5px;
+}
+
+#infoEntrega ul {
+    margin-top: 20px;
+    padding: 12px 5px;
+    list-style: none;
+    background-color: #b14343;
+}
+
 ul{
     list-style: none;
+}
+
+#infoEntrega ul li{
+    font-size: 16px;
+    color: #fff;
 }
 
 img{
@@ -110,4 +163,6 @@ img{
     margin-bottom: 10px;
 }
 
- 
+ .list-group-item {
+    background-color: transparent;
+}

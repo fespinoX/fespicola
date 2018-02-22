@@ -1,13 +1,13 @@
 <div ui-content-for="title">
   <span>RESULTADOS</span>
 </div>
-<div class="scrollable" ng-controller="mostrarController">
+<div class="scrollable" ng-controller="resultadosController">
 <div class="scrollable-content">
 <div class="section section muestrita">
 
-<div ng-repeat="x in allResultados" class="muestra">
+<div ng-repeat="x in allResultados track by $index" class="muestra">
 	<p>NOMBRE: {{x.nombre}}</p>
-	<p>PUNTOS: {{x.puntillos}}</p>
+	<p class="puntos">PUNTOS: {{x.puntos}}</p>
 	<button ng-click="borrar(x)" class="eli">BORRAR PUNTAJE</button>
 </div>
 	
