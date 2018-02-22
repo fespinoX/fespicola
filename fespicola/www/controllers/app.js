@@ -289,10 +289,32 @@ $scope.totalPuntaje =  $scope.camposPuntaje + $scope.pastosPuntaje + $scope.gran
             $location.path("/mostrar");
         }, function nopo(data){
             console.log("no se guardo en la base :/");
-            if($scope.getResultados !== null){
-                $scope.superArray = JSON.parse($scope.getResultados);
+
+
+
+
+
+                //guardo en una key del local que uso cuando no hay conexión para lo que no está sincronizado con la base => fespiDatosSoloLocal - superArraySoloLocal
+
+                if(!localStorage.getItem("fespiDatosSoloLocal")){
+                    $scope.superArraySoloLocal=[];
+                }else{
+                    $scope.superArraySoloLocal = JSON.parse(localStorage.getItem('fespiDatosSoloLocal'));
+                }
+
+                $scope.superArraySoloLocal.push($scope.aguardar);    
+                localStorage.setItem( "fespiDatosSoloLocal" , JSON.stringify($scope.superArraySoloLocal));
+
+
+
+
+
+
+
+
                 $location.path("/mostrar"); 
-            } 
+
+
         }); 
 			
     }
@@ -302,31 +324,49 @@ $scope.totalPuntaje =  $scope.camposPuntaje + $scope.pastosPuntaje + $scope.gran
 
 fespi.controller("resultadosController", function ($scope, $http, $location) {
 
-	
-/* mostrar los resultados */
+
+console.log("uno");
+
+/* MOSTRAR los resultados */
     
-    /* $scope.allResultados = JSON.parse(localStorage.getItem('fespiDatos')); */
+    // esto sincroniza y postea lo que quedo sólo en el local con syncResultados().
 
     $http({
         method: 'POST',     
         url: 'http://ohno.com.ar/fespicola/sincronizar.php', 
-        data: 'resultadosLocal=' + localStorage.getItem('fespiDatos'), 
+        data: 'fespiDatosSoloLocal=' + localStorage.getItem('fespiDatosSoloLocal'), 
         headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     }).then(function sipi(data){
         
+        // una vez que se sincronizó, borro la key del local donde guardo los datos que no están sincronizados con la base
+        localStorage.removeItem('fespiDatosSoloLocal');
+
+
+        console.log("dos");
+
+
+        // esto levanta la info de la base con getResultados().
+
         $http({
             method: 'GET',
             url: 'http://ohno.com.ar/fespicola/mostrar.php'
         }).then(function sipi(data) {
+            
+            console.log(data);
+            
             if(data.data.length > 0){
                 $scope.allResultados = data.data;  
                 console.log("entra al success del mostrar");
+
             }            
         });
 
     }, function no(data){
+
+        //si no se puede conectar con la base, levanta del local de la key general (que tiene todo).
+
         $scope.allResultados = JSON.parse(localStorage.getItem('fespiDatos'));
-        console.log("vacio");
+        console.log("no hay internet, levantamos del local y está todo bien (:");
     }); 
 
 

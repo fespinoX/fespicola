@@ -54,20 +54,15 @@
 
 /* actualiza la base con lo que levanta del localhost */
 
-	function syncResultados($resultadosLocal){
-		/*
-
-		global $conexion;
+	function syncResultados($fespiDatosSoloLocal){
 		
-		$resultadosLocal = json_decode($resultadosLocal);
-		$consulta = "TRUNCATE TABLE resultados";
-		mysqli_query($conexion, $consulta);
-		if(count($resultadosLocal) > 0) {
-			foreach ($resultadosLocal as $resultado) {
+		$fespiDatosSoloLocal = json_decode($fespiDatosSoloLocal);
+
+		if(count($fespiDatosSoloLocal) > 0) {
+			foreach ($fespiDatosSoloLocal as $resultado) {
 				putResultados(json_encode($resultado));
-			}			
+			}		
 		}
 
-		*/
 	} 
 ?>
