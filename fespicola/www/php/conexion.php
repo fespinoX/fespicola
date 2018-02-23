@@ -52,10 +52,13 @@
 	}
 
 
-/* actualiza la base con lo que levanta del localhost */
+/* actualiza la base agregando los resultados que levanta de SoloLocal */
 
 	function syncResultados($fespiDatosSoloLocal){
 		
+
+		//guardo en la base lo que me quedó en el array de SoloLocal.
+
 		$fespiDatosSoloLocal = json_decode($fespiDatosSoloLocal);
 
 		if(count($fespiDatosSoloLocal) > 0) {
@@ -65,4 +68,35 @@
 		}
 
 	} 
+
+
+
+/* elimino de la base lo que me quedo en el array de Aborrar. */
+
+
+	function syncDeletedResultados($fespiDatosAborrar){
+		
+
+		//guardo en la base lo que me quedó en el array de SoloLocal.
+
+		$fespiDatosAborrar = json_decode($fespiDatosAborrar);
+
+		if(count($fespiDatosAborrar) > 0) {
+
+
+			foreach ($fespiDatosAborrar as $resultado) {
+				deleteResultados($resultado);
+			}		
+		
+
+		}
+
+	} 
+
+
+
+
+
+
+
 ?>
