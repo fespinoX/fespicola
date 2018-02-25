@@ -291,28 +291,19 @@ $scope.totalPuntaje =  $scope.camposPuntaje + $scope.pastosPuntaje + $scope.gran
             console.log("no se guardo en la base :/");
 
 
+            //guardo en una key del local que uso cuando no hay conexión para lo que no está sincronizado con la base => fespiDatosSoloLocal - superArraySoloLocal
+
+            if(!localStorage.getItem("fespiDatosSoloLocal")){
+                $scope.superArraySoloLocal=[];
+            }else{
+                $scope.superArraySoloLocal = JSON.parse(localStorage.getItem('fespiDatosSoloLocal'));
+            }
+
+            $scope.superArraySoloLocal.push($scope.aguardar);    
+            localStorage.setItem( "fespiDatosSoloLocal" , JSON.stringify($scope.superArraySoloLocal));
 
 
-
-                //guardo en una key del local que uso cuando no hay conexión para lo que no está sincronizado con la base => fespiDatosSoloLocal - superArraySoloLocal
-
-                if(!localStorage.getItem("fespiDatosSoloLocal")){
-                    $scope.superArraySoloLocal=[];
-                }else{
-                    $scope.superArraySoloLocal = JSON.parse(localStorage.getItem('fespiDatosSoloLocal'));
-                }
-
-                $scope.superArraySoloLocal.push($scope.aguardar);    
-                localStorage.setItem( "fespiDatosSoloLocal" , JSON.stringify($scope.superArraySoloLocal));
-
-
-
-
-
-
-
-
-                $location.path("/mostrar"); 
+            $location.path("/mostrar"); 
 
 
         }); 
@@ -341,7 +332,6 @@ fespi.controller("resultadosController", function ($scope, $http, $location) {
         console.log("se vació fespiDatosSoloLocal");
 
 
-
         // ahora sincronizo los que tengo que borrar
 
         $http({
@@ -355,7 +345,6 @@ fespi.controller("resultadosController", function ($scope, $http, $location) {
         // una vez que se sincronizaron los borrados, borro la key del local donde guardo los resultados borrados que no estaban sincronizados con la base
         localStorage.removeItem('fespiDatosAborrar');
         console.log("se vació fespiDatosAborrar");
-
 
 
         // esto levanta la info de la base con getResultados().
@@ -388,15 +377,39 @@ fespi.controller("resultadosController", function ($scope, $http, $location) {
     
     $scope.borrar = function(x){
 
-		localStorage.removeItem("fespiDatos");
-			$scope.allResultados.splice($scope.allResultados.indexOf(x), 1);
+        if(!localStorage.getItem("fespiDatosSoloLocal")){
+          $scope.superArraySoloLocal=[];
+      }else{
+          $scope.superArraySoloLocal = JSON.parse(localStorage.getItem('fespiDatosSoloLocal'));
+      }
+
+
+    //borro del fespiDatosSoloLocal para los casos en los cuales creo y borro el mismo resultado estando offline.
+
+    console.log('antes hay: %s items',  $scope.superArraySoloLocal.length)
+    $scope.superArraySoloLocal.splice($scope.superArraySoloLocal.indexOf(x), 1);
+    console.log('despues hay: %s items',  $scope.superArraySoloLocal.length)
+    localStorage.removeItem("fespiDatosSoloLocal");
+      
+    $scope.superArraySoloLocalNew = [];
+    angular.forEach($scope.superArraySoloLocal, function(x) {
+        $scope.superArraySoloLocalNew.push(x);
+            
+        localStorage.setItem("fespiDatosSoloLocal", JSON.stringify($scope.superArraySoloLocal))
+    });
+
+
+    //borro del local storage
+
+	localStorage.removeItem("fespiDatos");
+	$scope.allResultados.splice($scope.allResultados.indexOf(x), 1);
 			
-			$scope.nuevaLista = [];
-			angular.forEach($scope.allResultados, function(x) {
-				$scope.nuevaLista.push(x);
-			
-				localStorage.setItem("fespiDatos", JSON.stringify($scope.nuevaLista))
-			});
+	$scope.nuevaLista = [];
+	
+    angular.forEach($scope.allResultados, function(x) {
+		$scope.nuevaLista.push(x);
+		localStorage.setItem("fespiDatos", JSON.stringify($scope.nuevaLista))
+	});
 
                 
         $http({ 
@@ -413,28 +426,16 @@ fespi.controller("resultadosController", function ($scope, $http, $location) {
             console.log("no se borró de la base");
 
 
-
-
-
-
             //guardo en una key del local que uso cuando no hay conexión para los que borré del local pero no de la base en dónde guardo sólo el ID. => fespiDatosAborrar - superArrayAborrar
 
-                if(!localStorage.getItem("fespiDatosAborrar")){
-                    $scope.superArrayAborrar=[];
-                }else{
-                    $scope.superArrayAborrar = JSON.parse(localStorage.getItem('fespiDatosAborrar'));
-                }
+            if(!localStorage.getItem("fespiDatosAborrar")){
+                $scope.superArrayAborrar=[];
+            }else{
+                $scope.superArrayAborrar = JSON.parse(localStorage.getItem('fespiDatosAborrar'));
+            }
 
-                $scope.superArrayAborrar.push(x.id);    
-                localStorage.setItem( "fespiDatosAborrar" , JSON.stringify($scope.superArrayAborrar));
-
-                // localStorage.setItem( "fespiDatosAborrar" , JSON.stringify(x.id));
-
-
-
-
-
-
+            $scope.superArrayAborrar.push(x.id);    
+            localStorage.setItem( "fespiDatosAborrar" , JSON.stringify($scope.superArrayAborrar));
 
         });
     }
